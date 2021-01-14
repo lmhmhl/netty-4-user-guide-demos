@@ -16,23 +16,16 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-/**
- * Echo Client.
- * 
- * @since 1.0.0 2019年10月2日
- * @author <a href="https://waylau.com">Way Lau</a>
- */
 public final class EchoClient {
 
 	public static void main(String[] args) throws Exception {
+
 		if (args.length != 2) {
 			System.err.println("用法: java EchoClient <host name> <port number>");
 			System.exit(1);
 		}
-
 		String hostName = args[0];
 		int portNumber = Integer.parseInt(args[1]);
-
 		// 配置客户端
 		EventLoopGroup group = new NioEventLoopGroup();
 		try {
@@ -41,10 +34,8 @@ public final class EchoClient {
 			.channel(NioSocketChannel.class)
 			.option(ChannelOption.TCP_NODELAY, true)
 			.handler(new EchoClientHandler());
-
 			// 连接到服务器
 			ChannelFuture f = b.connect(hostName, portNumber).sync();
-
 			Channel channel = f.channel();
 			ByteBuffer writeBuffer = ByteBuffer.allocate(32);
 			try (BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))) {
@@ -53,13 +44,10 @@ public final class EchoClient {
 					writeBuffer.put(userInput.getBytes());
 					writeBuffer.flip();
 					writeBuffer.rewind();
-					
 					// 转为ByteBuf
 					ByteBuf buf = Unpooled.copiedBuffer(writeBuffer);
-					
 					// 写消息到管道
 					channel.writeAndFlush(buf);
-					
 					// 清理缓冲区
 					writeBuffer.clear();
 				}
@@ -71,7 +59,6 @@ public final class EchoClient {
 				System.exit(1);
 			}
 		} finally {
-
 			// 优雅的关闭
 			group.shutdownGracefully();
 		}

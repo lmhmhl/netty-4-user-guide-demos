@@ -18,23 +18,16 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 
-/**
- * DatagramChannel Echo Client.
- * 
- * @since 1.0.0 2019年10月22日
- * @author <a href="https://waylau.com">Way Lau</a>
- */
 public final class DatagramChannelEchoClient {
 
 	public static void main(String[] args) throws Exception {
+
 		if (args.length != 2) {
 			System.err.println("用法: java DatagramChannelEchoClient <host name> <port number>");
 			System.exit(1);
 		}
-
 		String host = args[0];
 		int port = Integer.parseInt(args[1]);
-
 		// 配置客户端
 		EventLoopGroup group = new NioEventLoopGroup();
 		try {
@@ -43,12 +36,9 @@ public final class DatagramChannelEchoClient {
 			.channel(NioDatagramChannel.class)
 			.option(ChannelOption.SO_BROADCAST, true)
 			.handler(new DatagramChannelEchoClientHandler());
-
 			// 绑定端口
 			ChannelFuture f = b.bind(port).sync();
-
 			System.out.println("DatagramChannelEchoClient已启动，端口：" + port);
-			
 			Channel channel = f.channel();
 			ByteBuffer writeBuffer = ByteBuffer.allocate(32);
 			try (BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))) {
@@ -57,15 +47,12 @@ public final class DatagramChannelEchoClient {
 					writeBuffer.put(userInput.getBytes());
 					writeBuffer.flip();
 					writeBuffer.rewind();
-					
 					// 转为ByteBuf
 					ByteBuf buf = Unpooled.copiedBuffer(writeBuffer);
-					
 					// 写消息到管道
 					// 消息封装为DatagramPacket类型
 					channel.writeAndFlush(new DatagramPacket(buf, 
 							new InetSocketAddress(host, DatagramChannelEchoServer.DEFAULT_PORT)));
-					
 					// 清理缓冲区
 					writeBuffer.clear();
 				}
@@ -77,7 +64,6 @@ public final class DatagramChannelEchoClient {
 				System.exit(1);
 			}
 		} finally {
-
 			// 优雅的关闭
 			group.shutdownGracefully();
 		}
