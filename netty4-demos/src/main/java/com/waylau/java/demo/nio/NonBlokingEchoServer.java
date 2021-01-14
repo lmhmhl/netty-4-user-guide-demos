@@ -1,6 +1,3 @@
-/**
- * Welcome to https://waylau.com
- */
 package com.waylau.java.demo.nio;
 
 import java.io.IOException;
@@ -13,13 +10,8 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
-/**
- * Non Bloking Echo Server.
- * 
- * @since 1.0.0 2019年9月28日
- * @author <a href="https://waylau.com">Way Lau</a>
- */
 public class NonBlokingEchoServer {
+
 	public static int DEFAULT_PORT = 7;
 
 	/**
@@ -43,7 +35,6 @@ public class NonBlokingEchoServer {
 			serverChannel.configureBlocking(false);
 			selector = Selector.open();
 			serverChannel.register(selector, SelectionKey.OP_ACCEPT);
-
 			System.out.println("NonBlokingEchoServer已启动，端口：" + port);
 		} catch (IOException ex) {
 			ex.printStackTrace();

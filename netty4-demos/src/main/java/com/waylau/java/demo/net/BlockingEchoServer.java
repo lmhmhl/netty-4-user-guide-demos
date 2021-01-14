@@ -1,6 +1,3 @@
-/**
- * Welcome to https://waylau.com
- */
 package com.waylau.java.demo.net;
 
 import java.io.BufferedReader;
@@ -10,12 +7,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- * Blocking Echo Server.
- * 
- * @since 1.0.0 2019年9月28日
- * @author <a href="https://waylau.com">Way Lau</a>
- */
 public class BlockingEchoServer {
 
 	public static int DEFAULT_PORT = 7;

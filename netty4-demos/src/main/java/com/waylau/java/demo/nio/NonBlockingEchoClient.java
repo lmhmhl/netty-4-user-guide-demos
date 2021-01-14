@@ -1,6 +1,3 @@
-/**
- * Welcome to https://waylau.com
- */
 package com.waylau.java.demo.nio;
 
 import java.io.BufferedReader;
@@ -11,12 +8,6 @@ import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
-/**
- * Non Blocking Echo Client.
- * 
- * @since 1.0.0 2019年9月28日
- * @author <a href="https://waylau.com">Way Lau</a>
- */
 public class NonBlockingEchoClient {
 
 	/**
